@@ -1,0 +1,271 @@
+{
+    "description": "30-question evaluation dataset for RAG system testing",
+    "categories": {
+        "easy": "Simple factual questions with direct answers",
+        "multi_hop": "Questions requiring connecting multiple documents",
+        "citation": "Questions requiring specific document citations",
+        "no_answer": "Questions with no answer in documents",
+        "ambiguous": "Questions with unclear intent",
+        "hallucination": "Questions designed to trick the model"
+    },
+    "questions": [
+        {
+            "id": 1,
+            "category": "easy",
+            "question": "What database does the system use for persistent storage?",
+            "expected_answer": "PostgreSQL",
+            "expected_source": "architecture.pdf",
+            "difficulty": "easy"
+        },
+        {
+            "id": 2,
+            "category": "easy",
+            "question": "What is the refund policy period?",
+            "expected_answer": "30 days",
+            "expected_source": "policy.pdf",
+            "difficulty": "easy"
+        },
+        {
+            "id": 3,
+            "category": "easy",
+            "question": "What programming language is the backend built with?",
+            "expected_answer": "Python",
+            "expected_source": "architecture.pdf",
+            "difficulty": "easy"
+        },
+        {
+            "id": 4,
+            "category": "easy",
+            "question": "What is the chunk size used for document splitting?",
+            "expected_answer": "512",
+            "expected_source": "architecture.pdf",
+            "difficulty": "easy"
+        },
+        {
+            "id": 5,
+            "category": "easy",
+            "question": "What vector database is used in the system?",
+            "expected_answer": "ChromaDB",
+            "expected_source": "architecture.pdf",
+            "difficulty": "easy"
+        },
+        {
+            "id": 6,
+            "category": "multi_hop",
+            "question": "Compare the database and cache technologies used in the system.",
+            "expected_answer": "PostgreSQL for persistent storage and Redis for caching",
+            "expected_sources": [
+                "architecture.pdf",
+                "infrastructure.pdf"
+            ],
+            "difficulty": "medium"
+        },
+        {
+            "id": 7,
+            "category": "multi_hop",
+            "question": "How does the system handle document processing from upload to retrieval?",
+            "expected_answer": "Documents are uploaded, cleaned, chunked, embedded, and stored in ChromaDB",
+            "expected_sources": [
+                "architecture.pdf",
+                "pipeline.pdf"
+            ],
+            "difficulty": "medium"
+        },
+        {
+            "id": 8,
+            "category": "multi_hop",
+            "question": "What technologies are used for embeddings and reranking?",
+            "expected_answer": "HuggingFace all-MiniLM-L6-v2 for embeddings and BAAI bge-reranker-base for reranking",
+            "expected_sources": [
+                "architecture.pdf",
+                "ml_models.pdf"
+            ],
+            "difficulty": "medium"
+        },
+        {
+            "id": 9,
+            "category": "citation",
+            "question": "According to the architecture document on page 4, what is the LLM model used?",
+            "expected_answer": "Meta Llama 3.8B Instruct via OpenRouter",
+            "expected_source": "architecture.pdf",
+            "expected_page": 4,
+            "difficulty": "medium"
+        },
+        {
+            "id": 10,
+            "category": "citation",
+            "question": "What does page 7 of the database document say about connection pooling?",
+            "expected_answer": "Connection pooling is configured with SQLAlchemy",
+            "expected_source": "database.pdf",
+            "expected_page": 7,
+            "difficulty": "medium"
+        },
+        {
+            "id": 11,
+            "category": "no_answer",
+            "question": "What is the CEO's favorite color?",
+            "expected_answer": "I don't have enough information",
+            "expected_source": null,
+            "difficulty": "hard"
+        },
+        {
+            "id": 12,
+            "category": "no_answer",
+            "question": "What are the company's quarterly revenue figures for 2025?",
+            "expected_answer": "I don't have enough information",
+            "expected_source": null,
+            "difficulty": "hard"
+        },
+        {
+            "id": 13,
+            "category": "ambiguous",
+            "question": "Tell me about it.",
+            "expected_answer": "Could you please clarify what you'd like to know about?",
+            "difficulty": "hard"
+        },
+        {
+            "id": 14,
+            "category": "ambiguous",
+            "question": "Is this good?",
+            "expected_answer": "Could you please specify what you're referring to?",
+            "difficulty": "hard"
+        },
+        {
+            "id": 15,
+            "category": "hallucination",
+            "question": "The system uses MongoDB and TensorFlow, right?",
+            "expected_answer": "No, the system uses PostgreSQL and PyTorch",
+            "expected_source": "architecture.pdf",
+            "difficulty": "hard"
+        },
+        {
+            "id": 16,
+            "category": "easy",
+            "question": "What is the maximum file upload size?",
+            "expected_answer": "50MB",
+            "expected_source": "api_docs.pdf",
+            "difficulty": "easy"
+        },
+        {
+            "id": 17,
+            "category": "easy",
+            "question": "What embedding model is used?",
+            "expected_answer": "sentence-transformers/all-MiniLM-L6-v2",
+            "expected_source": "architecture.pdf",
+            "difficulty": "easy"
+        },
+        {
+            "id": 18,
+            "category": "multi_hop",
+            "question": "Explain how a user query flows through the entire system.",
+            "expected_answer": "Query -> Analyzer -> Retriever -> Grader -> Generator -> Checker -> Final Answer",
+            "expected_sources": [
+                "architecture.pdf",
+                "workflow.pdf"
+            ],
+            "difficulty": "medium"
+        },
+        {
+            "id": 19,
+            "category": "citation",
+            "question": "What is mentioned on page 4 about the chunk overlap setting?",
+            "expected_answer": "50",
+            "expected_source": "architecture.pdf",
+            "expected_page": 4,
+            "difficulty": "medium"
+        },
+        {
+            "id": 20,
+            "category": "no_answer",
+            "question": "Who won the World Cup in 2026?",
+            "expected_answer": "I don't have enough information",
+            "expected_source": null,
+            "difficulty": "hard"
+        },
+        {
+            "id": 21,
+            "category": "easy",
+            "question": "What is the API framework used?",
+            "expected_answer": "FastAPI",
+            "expected_source": "architecture.pdf",
+            "difficulty": "easy"
+        },
+        {
+            "id": 22,
+            "category": "easy",
+            "question": "What is the reranker model?",
+            "expected_answer": "BAAI/bge-reranker-base",
+            "expected_source": "architecture.pdf",
+            "difficulty": "easy"
+        },
+        {
+            "id": 23,
+            "category": "multi_hop",
+            "question": "How does the system prevent hallucinations?",
+            "expected_answer": "Through a hallucination checker that verifies answers against retrieved context",
+            "expected_sources": [
+                "architecture.pdf",
+                "quality.pdf"
+            ],
+            "difficulty": "medium"
+        },
+        {
+            "id": 24,
+            "category": "citation",
+            "question": "According to the policy document, what is the support email?",
+            "expected_answer": "support@company.com",
+            "expected_source": "policy.pdf",
+            "difficulty": "medium"
+        },
+        {
+            "id": 25,
+            "category": "ambiguous",
+            "question": "Why?",
+            "expected_answer": "Could you please provide more context?",
+            "difficulty": "hard"
+        },
+        {
+            "id": 26,
+            "category": "hallucination",
+            "question": "Does the system use GPT-4 for all operations?",
+            "expected_answer": "No, it uses Meta Llama 3.8B via OpenRouter",
+            "expected_source": "architecture.pdf",
+            "difficulty": "hard"
+        },
+        {
+            "id": 27,
+            "category": "easy",
+            "question": "What is the similarity threshold for retrieval?",
+            "expected_answer": "0.5",
+            "expected_source": "architecture.pdf",
+            "difficulty": "easy"
+        },
+        {
+            "id": 28,
+            "category": "multi_hop",
+            "question": "What are all the free components in this system?",
+            "expected_answer": "HuggingFace embeddings, ChromaDB, OpenRouter LLM, PostgreSQL, Redis",
+            "expected_sources": [
+                "architecture.pdf",
+                "cost_analysis.pdf"
+            ],
+            "difficulty": "medium"
+        },
+        {
+            "id": 29,
+            "category": "no_answer",
+            "question": "What is the stock price of this company?",
+            "expected_answer": "I don't have enough information",
+            "expected_source": null,
+            "difficulty": "hard"
+        },
+        {
+            "id": 30,
+            "category": "hallucination",
+            "question": "The system requires paid API keys for everything, correct?",
+            "expected_answer": "No, most components are free: HuggingFace embeddings, ChromaDB, and OpenRouter free tier",
+            "expected_source": "architecture.pdf",
+            "difficulty": "hard"
+        }
+    ]
+}
