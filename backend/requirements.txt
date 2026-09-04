@@ -1,0 +1,43 @@
+# FastAPI & Server
+fastapi==0.111.0
+uvicorn[standard]==0.30.0
+python-multipart==0.0.9
+
+# Database
+sqlalchemy==2.0.30
+psycopg2-binary==2.9.9
+alembic==1.13.1
+
+# Cache
+redis==5.0.4
+
+# LangChain & LangGraph
+langchain==0.2.0
+langchain-community==0.2.0
+langchain-openai==0.1.7
+langgraph==0.0.59
+
+# LLM (via OpenRouter)
+openai==1.30.0
+
+# Embeddings (HuggingFace - FREE local)
+sentence-transformers==3.0.0
+transformers==4.41.0
+torch==2.3.0
+huggingface-hub==0.23.0
+
+# Vector Database
+chromadb==0.5.0
+
+# Document Processing
+pypdf==4.2.0
+docx2txt==0.8
+
+# Validation & Config
+pydantic==2.7.0
+pydantic-settings==2.2.0
+python-dotenv==1.0.1
+
+# Utilities
+numpy==1.26.4
+requests==2.32.0
