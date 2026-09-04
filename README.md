@@ -1,11 +1,7 @@
-# 📚 Document Analyzer — Agentic RAG System
+# Document Analyzer — Agentic RAG System
 
 > An intelligent **Retrieval-Augmented Generation (RAG)** application that allows users to upload documents and ask questions using semantic retrieval, document citations, and a **LangGraph-based agentic workflow**.
 
-
-
-
-\
 
 ---
 
