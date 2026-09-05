@@ -1,4 +1,4 @@
-# 📚 Document Analyzer — Agentic RAG System
+#  Document Analyzer — Agentic RAG System
 
 > An intelligent full-stack **Retrieval-Augmented Generation (RAG)** application for uploading documents, asking questions, retrieving relevant information, and generating answers with document-based citations.
 
@@ -14,7 +14,7 @@
 
 ---
 
-## ✨ Overview
+##  Overview
 
 **Document Analyzer** is a full-stack AI document-question-answering system built around an advanced RAG architecture.
 
@@ -34,55 +34,55 @@ The system combines:
 
 ---
 
-## 🎯 Key Features
+##  Key Features
 
 | Feature                  | Implementation               |
 | ------------------------ | ---------------------------- |
-| 📄 PDF/TXT/DOCX Upload   | Supported                    |
-| 🧹 Document Cleaning     | Implemented                  |
-| ✂️ Configurable Chunking | 512 chunk size / 50 overlap  |
-| 🧠 Embeddings            | `all-MiniLM-L6-v2`           |
-| 🗄️ Vector Database      | ChromaDB                     |
-| 🔎 Semantic Retrieval    | Implemented                  |
-| 🔄 Multi-Query Retrieval | Implemented                  |
-| 🎯 Reranking             | BGE reranker implemented     |
-| 🧩 Context Optimization  | Implemented                  |
-| 📌 Citations             | Document/page/chunk metadata |
-| 🤖 Agentic Workflow      | LangGraph                    |
-| 🔁 Query Rewriting       | Implemented                  |
-| 🚀 REST API              | FastAPI                      |
-| 💬 Chat Sessions         | PostgreSQL                   |
-| 🖥️ Web Interface        | React + Vite                 |
-| 🐳 Docker                | Docker Compose               |
-| 📊 Evaluation Dataset    | 30 questions                 |
+|  PDF/TXT/DOCX Upload   | Supported                    |
+|  Document Cleaning     | Implemented                  |
+|  Configurable Chunking | 512 chunk size / 50 overlap  |
+|  Embeddings            | `all-MiniLM-L6-v2`           |
+|  Vector Database      | ChromaDB                     |
+|  Semantic Retrieval    | Implemented                  |
+|  Multi-Query Retrieval | Implemented                  |
+|  Reranking             | BGE reranker implemented     |
+|  Context Optimization  | Implemented                  |
+|  Citations             | Document/page/chunk metadata |
+|  Agentic Workflow      | LangGraph                    |
+|  Query Rewriting       | Implemented                  |
+|  REST API              | FastAPI                      |
+|  Chat Sessions         | PostgreSQL                   |
+|  Web Interface        | React + Vite                 |
+|  Docker                | Docker Compose               |
+|  Evaluation Dataset    | 30 questions                 |
 
 ---
 
-# 🏗️ System Architecture
+#  System Architecture
 
 ```mermaid
 flowchart TB
-    U["👤 User"]
+    U[" User"]
 
-    F["🖥️ React + Vite Frontend"]
+    F[" React + Vite Frontend"]
 
-    API["🚀 FastAPI Backend"]
+    API[" FastAPI Backend"]
 
-    G["🤖 LangGraph Agentic RAG"]
+    G[" LangGraph Agentic RAG"]
 
-    QA["🔍 Query Analyzer"]
-    R["📚 Retriever"]
-    RG["🎯 Relevance Grader"]
-    RW["✏️ Query Rewriter"]
-    AG["💬 Answer Generator"]
-    VC["📌 Citation / Verification"]
+    QA[" Query Analyzer"]
+    R[" Retriever"]
+    RG[" Relevance Grader"]
+    RW[" Query Rewriter"]
+    AG[" Answer Generator"]
+    VC[" Citation / Verification"]
 
-    C["🗄️ ChromaDB"]
-    P["🐘 PostgreSQL"]
-    RED["⚡ Redis"]
+    C[" ChromaDB"]
+    P[" PostgreSQL"]
+    RED[" Redis"]
 
-    LLM["🧠 LLM / OpenRouter"]
-    EMB["🔢 Sentence Transformer Embeddings"]
+    LLM[" LLM / OpenRouter"]
+    EMB[" Sentence Transformer Embeddings"]
 
     U --> F
     F --> API
@@ -109,19 +109,19 @@ flowchart TB
 
 ---
 
-# 🔄 Document Ingestion Pipeline
+#  Document Ingestion Pipeline
 
 Uploaded documents pass through a multi-stage ingestion pipeline before becoming searchable.
 
 ```mermaid
 flowchart LR
-    A["📄 Upload Document"]
-    B["🔎 Detect File Type"]
-    C["📖 Load Document"]
-    D["🧹 Clean Text"]
-    E["✂️ Split into Chunks"]
-    F["🧠 Generate Embeddings"]
-    G["🗄️ Store in ChromaDB"]
+    A[" Upload Document"]
+    B[" Detect File Type"]
+    C[" Load Document"]
+    D[" Clean Text"]
+    E[" Split into Chunks"]
+    F[" Generate Embeddings"]
+    G[" Store in ChromaDB"]
 
     A --> B
     B --> C
@@ -152,19 +152,19 @@ Document metadata such as filename, document ID, page number, and chunk index is
 
 ---
 
-# 🔎 Advanced RAG Pipeline
+#  Advanced RAG Pipeline
 
 ```mermaid
 flowchart LR
-    Q["❓ User Question"]
-    E["🧠 Query Embedding"]
-    S["🔎 Semantic Search"]
-    M["🔄 Multi-Query Retrieval"]
-    RR["🎯 Reranking"]
-    CO["🧹 Context Optimization"]
-    C["📌 Citation Creation"]
-    L["🤖 LLM"]
-    A["💬 Final Answer"]
+    Q[" User Question"]
+    E[" Query Embedding"]
+    S[" Semantic Search"]
+    M[" Multi-Query Retrieval"]
+    RR[" Reranking"]
+    CO[" Context Optimization"]
+    C[" Citation Creation"]
+    L[" LLM"]
+    A[" Final Answer"]
 
     Q --> E
     E --> S
@@ -178,11 +178,11 @@ flowchart LR
 
 The retrieval module provides semantic search, multi-query retrieval, reranking, duplicate removal, relevance filtering, context-length optimization, and citation generation.
 
-> **Implementation note:** MMR and BGE reranking capabilities exist in the retrieval module, but the current LangGraph execution path disables them and uses semantic retrieval configuration.
+
 
 ---
 
-# 🤖 LangGraph Agentic Workflow
+#  LangGraph Agentic Workflow
 
 The system uses LangGraph to organize the RAG process into conditional nodes.
 
@@ -190,19 +190,19 @@ The system uses LangGraph to organize the RAG process into conditional nodes.
 flowchart TD
     START(["START"])
 
-    QA["🔍 Query Analyzer"]
+    QA[" Query Analyzer"]
 
-    R["📚 Retriever"]
+    R[" Retriever"]
 
-    G["🎯 Relevance Grader"]
+    G[" Relevance Grader"]
 
-    A["💬 Answer Generator"]
+    A[" Answer Generator"]
 
-    C["📌 Citation / Hallucination Check"]
+    C[" Citation / Hallucination Check"]
 
-    RW["✏️ Query Rewriter"]
+    RW[" Query Rewriter"]
 
-    FINAL["✅ Final Answer"]
+    FINAL[" Final Answer"]
 
     END(["END"])
 
@@ -227,7 +227,7 @@ This workflow allows the application to retry retrieval when the initial retriev
 
 ---
 
-# 🧠 Agent State
+#  Agent State
 
 The LangGraph workflow maintains structured state containing information such as:
 
@@ -248,7 +248,7 @@ The LangGraph workflow maintains structured state containing information such as
 
 ---
 
-# 📌 Citations
+#  Citations
 
 The system retains source metadata during retrieval.
 
@@ -277,7 +277,7 @@ This allows users to trace generated answers back to retrieved document content.
 
 ---
 
-# 🚀 FastAPI Backend
+#  FastAPI Backend
 
 The backend exposes a REST API using FastAPI.
 
@@ -358,18 +358,18 @@ Example response:
 
 ---
 
-# 🖥️ Frontend
+#  Frontend
 
 The frontend is built using **React 18 + Vite**.
 
 It provides:
 
-* 📁 Document upload
-* 📚 Document management
-* 💬 AI chat
-* 📌 Citation display
-* 🗂️ Chat sessions
-* 🔄 Conversation history
+*  Document upload
+*  Document management
+*  AI chat
+*  Citation display
+*  Chat sessions
+*  Conversation history
 
 ### Application Screenshot
 
@@ -377,7 +377,7 @@ It provides:
 
 ---
 
-# 📚 Document Management
+#  Document Management
 
 Users can upload supported documents and manage indexed files from the application interface.
 
@@ -399,9 +399,9 @@ Users can ask questions and receive answers generated from retrieved document co
 flowchart LR
     APP["🚀 Application"]
 
-    CH["🗄️ ChromaDB"]
-    PG["🐘 PostgreSQL"]
-    RD["⚡ Redis"]
+    CH[" ChromaDB"]
+    PG[" PostgreSQL"]
+    RD[" Redis"]
 
     APP --> CH
     APP --> PG
@@ -432,7 +432,7 @@ Provides supporting in-memory application services.
 
 ---
 
-# ⚙️ Environment Configuration
+#  Environment Configuration
 
 Create your environment configuration using `.env.example`.
 
@@ -454,11 +454,10 @@ SIMILARITY_THRESHOLD=0.1
 MAX_RETRIES=1
 ```
 
-> ⚠️ Never commit real API keys, passwords, or other secrets to GitHub.
 
 ---
 
-# 💻 Local Installation
+#  Local Installation
 
 ## 1. Clone the Repository
 
@@ -570,7 +569,7 @@ The current evaluation implementation records:
 
 ---
 
-# 🧪 Testing Strategy
+#  Testing Strategy
 
 The system can be tested across the complete application pipeline:
 
@@ -607,7 +606,7 @@ Testing areas include:
 
 ---
 
-# 🔐 Security
+#  Security
 
 The project follows basic security practices:
 
@@ -621,7 +620,7 @@ The project follows basic security practices:
 
 ---
 
-# 📁 Project Structure
+#  Project Structure
 
 ```text
 Document-Analyzer/
@@ -670,7 +669,7 @@ Document-Analyzer/
 
 ---
 
-# ⚠️ Limitations
+#  Limitations
 
 Some advanced capabilities are implemented in the codebase but are not currently enabled in the main LangGraph execution path.
 
@@ -685,7 +684,7 @@ Current limitations include:
 
 ---
 
-# 🔮 Future Improvements
+#  Future Improvements
 
 * Enable true MMR retrieval in the active workflow.
 * Enable BGE reranking in normal graph execution.
@@ -702,7 +701,7 @@ Current limitations include:
 
 ---
 
-# 📸 API Documentation
+#  API Documentation
 
 FastAPI automatically provides interactive API documentation through Swagger UI.
 
@@ -710,37 +709,8 @@ FastAPI automatically provides interactive API documentation through Swagger UI.
 
 ---
 
-# 📌 Assignment Requirements
 
-| Assignment Requirement          | Status                                |
-| ------------------------------- | ------------------------------------- |
-| PDF/TXT/DOCX ingestion          | ✅                                     |
-| Document loading                | ✅                                     |
-| Cleaning                        | ✅                                     |
-| Configurable chunking           | ✅                                     |
-| Embeddings                      | ✅                                     |
-| Persistent vector database      | ✅                                     |
-| Semantic retrieval              | ✅                                     |
-| Advanced retrieval capabilities | ✅                                     |
-| Reranking capability            | ✅                                     |
-| Context optimization            | ✅                                     |
-| Citations                       | ✅                                     |
-| LangGraph workflow              | ✅                                     |
-| Query rewriting                 | ✅                                     |
-| Conditional routing             | ✅                                     |
-| FastAPI backend                 | ✅                                     |
-| Pydantic validation             | ✅                                     |
-| React frontend                  | ✅                                     |
-| PostgreSQL                      | ✅                                     |
-| Redis                           | ✅                                     |
-| Docker Compose                  | ✅                                     |
-| Evaluation dataset              | ✅ 30 questions                        |
-| Localhost execution             | ✅                                     |
-| Cloud deployment                | Not required for localhost submission |
-
----
-
-# 👨‍💻 Author
+#  Author
 
 **Sufian Devs**
 
