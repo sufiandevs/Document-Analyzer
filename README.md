@@ -385,7 +385,7 @@ Users can upload supported documents and manage indexed files from the applicati
 
 ---
 
-# 💬 AI Chat & Citations
+#  AI Chat & Citations
 
 Users can ask questions and receive answers generated from retrieved document context.
 
@@ -393,7 +393,7 @@ Users can ask questions and receive answers generated from retrieved document co
 
 ---
 
-# 🗄️ Data Persistence
+#  Data Persistence
 
 ```mermaid
 flowchart LR
