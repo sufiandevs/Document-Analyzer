@@ -1,249 +1,285 @@
-# Document Analyzer — Agentic RAG System
+# 📚 Document Analyzer — Agentic RAG System
 
-> An intelligent **Retrieval-Augmented Generation (RAG)** application that allows users to upload documents and ask questions using semantic retrieval, document citations, and a **LangGraph-based agentic workflow**.
+> An intelligent full-stack **Retrieval-Augmented Generation (RAG)** application for uploading documents, asking questions, retrieving relevant information, and generating answers with document-based citations.
 
+![Python](https://img.shields.io/badge/Python-3.11+-blue?logo=python)
+![FastAPI](https://img.shields.io/badge/FastAPI-API-green?logo=fastapi)
+![React](https://img.shields.io/badge/React-18-blue?logo=react)
+![LangChain](https://img.shields.io/badge/LangChain-RAG-orange)
+![LangGraph](https://img.shields.io/badge/LangGraph-Agentic_RAG-purple)
+![ChromaDB](https://img.shields.io/badge/ChromaDB-Vector_DB-red)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue?logo=postgresql)
+![Redis](https://img.shields.io/badge/Redis-Cache-red?logo=redis)
+![Docker](https://img.shields.io/badge/Docker-Containerized-blue?logo=docker)
 
 ---
 
 ## ✨ Overview
 
-**Document Analyzer** is a full-stack AI application designed to answer questions from user-uploaded documents.
+**Document Analyzer** is a full-stack AI document-question-answering system built around an advanced RAG architecture.
 
-The system follows an advanced RAG pipeline:
+Users can upload **PDF, TXT, and DOCX** documents and ask questions about their contents through a React web interface.
 
-```text
-Documents
-    ↓
-Load & Clean
-    ↓
-Chunking
-    ↓
-Embeddings
-    ↓
-ChromaDB
-    ↓
-Semantic Retrieval
-    ↓
-Relevance Evaluation
-    ↓
-Query Rewriting (if required)
-    ↓
-LLM Answer Generation
-    ↓
-Citations & Verification
-```
+The system combines:
 
-The project goes beyond a simple:
-
-```text
-Question → Retriever → LLM → Answer
-```
-
-by using a **LangGraph workflow** to control retrieval, relevance checking, query rewriting, answer generation, and verification.
+* LangChain for document processing and RAG components
+* ChromaDB for persistent vector storage
+* Sentence Transformers for embeddings
+* LangGraph for agentic workflow orchestration
+* FastAPI for backend APIs
+* PostgreSQL for chat persistence
+* Redis for supporting application services
+* React + Vite for the frontend
+* OpenRouter for LLM access
 
 ---
 
-## 🎯 Project Objectives
+## 🎯 Key Features
 
-* Upload and process **PDF, TXT, and DOCX** documents.
-* Clean and split documents into meaningful chunks.
-* Generate semantic embeddings for document retrieval.
-* Store embeddings persistently using **ChromaDB**.
-* Retrieve relevant document context using semantic search.
-* Improve retrieval using query variations and reranking capabilities.
-* Use **LangGraph** for conditional agentic RAG workflow.
-* Generate answers using an external LLM through OpenRouter.
-* Provide document/page-based citations.
-* Maintain chat sessions and conversation history.
-* Provide a REST API through FastAPI.
-* Provide a React-based web interface.
+| Feature                  | Implementation               |
+| ------------------------ | ---------------------------- |
+| 📄 PDF/TXT/DOCX Upload   | Supported                    |
+| 🧹 Document Cleaning     | Implemented                  |
+| ✂️ Configurable Chunking | 512 chunk size / 50 overlap  |
+| 🧠 Embeddings            | `all-MiniLM-L6-v2`           |
+| 🗄️ Vector Database      | ChromaDB                     |
+| 🔎 Semantic Retrieval    | Implemented                  |
+| 🔄 Multi-Query Retrieval | Implemented                  |
+| 🎯 Reranking             | BGE reranker implemented     |
+| 🧩 Context Optimization  | Implemented                  |
+| 📌 Citations             | Document/page/chunk metadata |
+| 🤖 Agentic Workflow      | LangGraph                    |
+| 🔁 Query Rewriting       | Implemented                  |
+| 🚀 REST API              | FastAPI                      |
+| 💬 Chat Sessions         | PostgreSQL                   |
+| 🖥️ Web Interface        | React + Vite                 |
+| 🐳 Docker                | Docker Compose               |
+| 📊 Evaluation Dataset    | 30 questions                 |
 
 ---
 
-## 🏗️ System Architecture
+# 🏗️ System Architecture
 
-```text
-┌───────────────────────┐
-│     React Frontend    │
-│   Document + Chat UI  │
-└───────────┬───────────┘
-            │ HTTP
-            ▼
-┌───────────────────────┐
-│      FastAPI API      │
-├───────────────────────┤
-│ Document Endpoints    │
-│ Chat Endpoints        │
-│ Health Endpoint       │
-└───────────┬───────────┘
-            │
-            ▼
-┌────────────────────────────────┐
-│       LangGraph RAG Agent      │
-│                                │
-│ Query Analyzer                 │
-│       ↓                        │
-│ Retriever                      │
-│       ↓                        │
-│ Relevance Grader               │
-│    ↙       ↘                   │
-│ Rewrite      Answer             │
-│    ↓           ↓                │
-│ Retriever   Citation/Check      │
-│                ↓               │
-│             Final Answer        │
-└───────────┬────────────────────┘
-            │
-      ┌─────┴─────────┐
-      ▼               ▼
-┌─────────────┐  ┌──────────────┐
-│  ChromaDB   │  │ PostgreSQL   │
-│ Vector Data │  │ Chat Data    │
-└─────────────┘  └──────────────┘
-            │
-            ▼
-       ┌─────────┐
-       │  Redis  │
-       └─────────┘
+```mermaid
+flowchart TB
+    U["👤 User"]
+
+    F["🖥️ React + Vite Frontend"]
+
+    API["🚀 FastAPI Backend"]
+
+    G["🤖 LangGraph Agentic RAG"]
+
+    QA["🔍 Query Analyzer"]
+    R["📚 Retriever"]
+    RG["🎯 Relevance Grader"]
+    RW["✏️ Query Rewriter"]
+    AG["💬 Answer Generator"]
+    VC["📌 Citation / Verification"]
+
+    C["🗄️ ChromaDB"]
+    P["🐘 PostgreSQL"]
+    RED["⚡ Redis"]
+
+    LLM["🧠 LLM / OpenRouter"]
+    EMB["🔢 Sentence Transformer Embeddings"]
+
+    U --> F
+    F --> API
+    API --> G
+
+    G --> QA
+    QA --> R
+    R --> C
+    R --> RG
+
+    RG -->|Relevant| AG
+    RG -->|Not Relevant| RW
+    RW --> R
+
+    AG --> LLM
+    AG --> VC
+    VC --> F
+
+    API --> P
+    API --> RED
+
+    EMB --> C
 ```
 
 ---
 
-## 🔄 RAG & LangGraph Workflow
+# 🔄 Document Ingestion Pipeline
 
-The agentic workflow is designed around conditional retrieval and answer generation.
+Uploaded documents pass through a multi-stage ingestion pipeline before becoming searchable.
 
-```text
-START
-  │
-  ▼
-Query Analyzer
-  │
-  ▼
-Retriever
-  │
-  ▼
-Relevance Grader
-  │
-  ├── Relevant ───────► Answer Generator
-  │                           │
-  │                           ▼
-  │                    Citation / Check
-  │                           │
-  │                           ▼
-  │                          END
-  │
-  └── Not Relevant ──► Query Rewriter
-                            │
-                            ▼
-                         Retriever
+```mermaid
+flowchart LR
+    A["📄 Upload Document"]
+    B["🔎 Detect File Type"]
+    C["📖 Load Document"]
+    D["🧹 Clean Text"]
+    E["✂️ Split into Chunks"]
+    F["🧠 Generate Embeddings"]
+    G["🗄️ Store in ChromaDB"]
+
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+    E --> F
+    F --> G
 ```
 
-This enables the system to retry retrieval when the initial query does not produce sufficiently relevant context.
+### Supported Formats
+
+| Format | Loader         |
+| ------ | -------------- |
+| PDF    | PyPDFLoader    |
+| TXT    | TextLoader     |
+| DOCX   | Docx2txtLoader |
+
+### Chunking Configuration
+
+| Parameter       |                                    Value |
+| --------------- | ---------------------------------------: |
+| Chunk Size      |                                      512 |
+| Chunk Overlap   |                                       50 |
+| Vector Store    |                                 ChromaDB |
+| Embedding Model | `sentence-transformers/all-MiniLM-L6-v2` |
+
+Document metadata such as filename, document ID, page number, and chunk index is preserved for retrieval and citation generation.
 
 ---
 
-## 📄 Document Ingestion
+# 🔎 Advanced RAG Pipeline
 
-The ingestion pipeline supports:
+```mermaid
+flowchart LR
+    Q["❓ User Question"]
+    E["🧠 Query Embedding"]
+    S["🔎 Semantic Search"]
+    M["🔄 Multi-Query Retrieval"]
+    RR["🎯 Reranking"]
+    CO["🧹 Context Optimization"]
+    C["📌 Citation Creation"]
+    L["🤖 LLM"]
+    A["💬 Final Answer"]
 
-* PDF
-* TXT
-* DOCX
-
-### Processing Steps
-
-1. Detect document type.
-2. Load document using LangChain document loaders.
-3. Clean extracted text.
-4. Remove unnecessary whitespace and formatting artifacts.
-5. Split documents into configurable chunks.
-6. Generate embeddings.
-7. Store vectors and metadata in ChromaDB.
-
-### Default Chunk Configuration
-
-```text
-Chunk Size:     512
-Chunk Overlap:   50
+    Q --> E
+    E --> S
+    S --> M
+    M --> RR
+    RR --> CO
+    CO --> C
+    C --> L
+    L --> A
 ```
 
-Metadata such as filename, document ID, page number, and chunk index is retained to support citations.
+The retrieval module provides semantic search, multi-query retrieval, reranking, duplicate removal, relevance filtering, context-length optimization, and citation generation.
+
+> **Implementation note:** MMR and BGE reranking capabilities exist in the retrieval module, but the current LangGraph execution path disables them and uses semantic retrieval configuration.
 
 ---
 
-## 🔎 Advanced Retrieval
+# 🤖 LangGraph Agentic Workflow
 
-The project implements several retrieval capabilities:
+The system uses LangGraph to organize the RAG process into conditional nodes.
 
-### Semantic Search
+```mermaid
+flowchart TD
+    START(["START"])
 
-Documents are converted into embeddings using:
+    QA["🔍 Query Analyzer"]
 
-```text
-sentence-transformers/all-MiniLM-L6-v2
+    R["📚 Retriever"]
+
+    G["🎯 Relevance Grader"]
+
+    A["💬 Answer Generator"]
+
+    C["📌 Citation / Hallucination Check"]
+
+    RW["✏️ Query Rewriter"]
+
+    FINAL["✅ Final Answer"]
+
+    END(["END"])
+
+    START --> QA
+    QA --> R
+    R --> G
+
+    G -->|Relevant| A
+    G -->|Not Relevant| RW
+
+    RW --> R
+
+    A --> C
+
+    C -->|Verified| FINAL
+    C -->|Retry| RW
+
+    FINAL --> END
 ```
 
-ChromaDB is then used to retrieve semantically similar chunks.
-
-### Multi-Query Retrieval
-
-The system can generate query variations such as:
-
-```text
-Original Query
-     ↓
-Lowercase Variation
-     ↓
-Alternative Query
-     ↓
-Semantic Retrieval
-     ↓
-Deduplication
-```
-
-### Reranking
-
-A BGE reranker is implemented using:
-
-```text
-BAAI/bge-reranker-base
-```
-
-This provides a second-stage relevance scoring mechanism after initial retrieval.
-
-> **Note:** Advanced MMR and reranking functionality is implemented in the retrieval module, while the current LangGraph execution path uses basic semantic retrieval configuration.
+This workflow allows the application to retry retrieval when the initial retrieved context is not considered sufficiently relevant.
 
 ---
 
-## 📌 Citations
+# 🧠 Agent State
 
-Retrieved information is associated with metadata including:
+The LangGraph workflow maintains structured state containing information such as:
 
-* Document name
-* Page number
-* Chunk index
-* Retrieval score
-* Source text
+| State Field           | Purpose                        |
+| --------------------- | ------------------------------ |
+| `question`            | Original user question         |
+| `rewritten_query`     | Improved query after rewriting |
+| `documents`           | Retrieved document chunks      |
+| `relevance_score`     | Retrieval relevance            |
+| `answer`              | Generated answer               |
+| `citations`           | Source information             |
+| `retry_count`         | Number of retrieval retries    |
+| `max_retries`         | Maximum retry limit            |
+| `query_type`          | Query classification           |
+| `needs_retrieval`     | Retrieval decision             |
+| `hallucination_check` | Verification state             |
+| `citation_check`      | Citation verification state    |
 
-Example response structure:
+---
+
+# 📌 Citations
+
+The system retains source metadata during retrieval.
+
+A citation can contain:
+
+| Field    | Description              |
+| -------- | ------------------------ |
+| Document | Source filename          |
+| Page     | Source page              |
+| Chunk    | Chunk index              |
+| Score    | Retrieval score          |
+| Text     | Retrieved source content |
+
+Example:
 
 ```text
 Answer:
-The document states that ...
+The document explains that...
 
 Sources:
-[1] example.pdf — Page 3
-[2] example.pdf — Page 7
+[1] research.pdf — Page 3
+[2] research.pdf — Page 7
 ```
 
-This allows users to identify where retrieved information originated.
+This allows users to trace generated answers back to retrieved document content.
 
 ---
 
-## 🚀 FastAPI Backend
+# 🚀 FastAPI Backend
 
-The backend is built with **FastAPI**.
+The backend exposes a REST API using FastAPI.
 
 ### Base URL
 
@@ -253,36 +289,25 @@ http://localhost:8000
 
 ### API Documentation
 
-Swagger UI:
-
 ```text
 http://localhost:8000/docs
 ```
-
-ReDoc:
 
 ```text
 http://localhost:8000/redoc
 ```
 
----
+## API Endpoints
 
-## 🔌 API Endpoints
-
-### Health Check
-
-```http
-GET /health
-```
-
-Checks the availability/configuration of core services such as:
-
-* PostgreSQL
-* Redis
-* ChromaDB
-* LLM configuration
-
----
+| Method   | Endpoint                     | Purpose                          |
+| -------- | ---------------------------- | -------------------------------- |
+| `GET`    | `/health`                    | Check application/service health |
+| `POST`   | `/documents/upload`          | Upload and process a document    |
+| `GET`    | `/documents`                 | List uploaded documents          |
+| `DELETE` | `/documents/{document_id}`   | Delete a document                |
+| `POST`   | `/chat`                      | Ask a question                   |
+| `GET`    | `/chat/history/{session_id}` | Retrieve chat history            |
+| `GET`    | `/chat/sessions`             | Retrieve chat sessions           |
 
 ### Upload Document
 
@@ -290,36 +315,12 @@ Checks the availability/configuration of core services such as:
 POST /documents/upload
 ```
 
-Uploads and processes a PDF, TXT, or DOCX document.
-
 Example:
 
 ```bash
 curl -X POST "http://localhost:8000/documents/upload" \
   -F "file=@example.pdf"
 ```
-
----
-
-### List Documents
-
-```http
-GET /documents
-```
-
-Returns uploaded/indexed documents.
-
----
-
-### Delete Document
-
-```http
-DELETE /documents/{document_id}
-```
-
-Removes a document and its associated vector data.
-
----
 
 ### Ask a Question
 
@@ -357,95 +358,83 @@ Example response:
 
 ---
 
-### Chat History
+# 🖥️ Frontend
 
-```http
-GET /chat/history/{session_id}
-```
+The frontend is built using **React 18 + Vite**.
 
-Returns messages associated with a chat session.
-
----
-
-### Chat Sessions
-
-```http
-GET /chat/sessions
-```
-
-Returns available conversation sessions.
-
----
-
-## 🖥️ Frontend
-
-The frontend is implemented using:
-
-* React 18
-* Vite
-* Axios
-* React Markdown
-
-The interface provides:
+It provides:
 
 * 📁 Document upload
-* 📚 Indexed document management
+* 📚 Document management
 * 💬 AI chat
-* 🧠 Question answering
 * 📌 Citation display
-* 🗂️ Conversation/session management
-* 🔄 Chat history
+* 🗂️ Chat sessions
+* 🔄 Conversation history
 
-### Example UI
+### Application Screenshot
 
-```text
-┌──────────────────────────────────────────────────────────┐
-│  Document Analyzer                                       │
-├──────────────┬───────────────────────────────────────────┤
-│              │                                           │
-│  Documents   │          AI Chat                          │
-│              │                                           │
-│  📄 report   │  User: What is this document about?       │
-│  📄 paper    │                                           │
-│              │  AI: The document discusses...            │
-│  ──────────  │                                           │
-│              │  📌 Sources                               │
-│  Chat        │  report.pdf — Page 3                      │
-│  History     │                                           │
-│              │                                           │
-└──────────────┴───────────────────────────────────────────┘
-```
+![Document Analyzer UI](docs/images/frontend.png)
 
 ---
 
-## 🗄️ Data & Persistence
+# 📚 Document Management
+
+Users can upload supported documents and manage indexed files from the application interface.
+
+![Document Management](docs/images/documents.png)
+
+---
+
+# 💬 AI Chat & Citations
+
+Users can ask questions and receive answers generated from retrieved document context.
+
+![AI Chat Response](docs/images/chat-response.png)
+
+---
+
+# 🗄️ Data Persistence
+
+```mermaid
+flowchart LR
+    APP["🚀 Application"]
+
+    CH["🗄️ ChromaDB"]
+    PG["🐘 PostgreSQL"]
+    RD["⚡ Redis"]
+
+    APP --> CH
+    APP --> PG
+    APP --> RD
+```
 
 ### ChromaDB
 
-Used as the persistent vector database for:
+Stores:
 
 * Document chunks
 * Embeddings
-* Metadata
-* Retrieval
+* Document metadata
+* Retrieval information
 
 ### PostgreSQL
 
-Used for persistent application data such as:
+Stores:
 
 * Chat sessions
-* User/assistant messages
+* User messages
+* Assistant messages
 * Conversation history
 
 ### Redis
 
-Used as a supporting in-memory service for application operations.
+Provides supporting in-memory application services.
 
 ---
 
-## ⚙️ Environment Variables
+# ⚙️ Environment Configuration
 
-Create a `.env` file inside the backend configuration according to the project's environment template.
+Create your environment configuration using `.env.example`.
 
 Example:
 
@@ -465,27 +454,27 @@ SIMILARITY_THRESHOLD=0.1
 MAX_RETRIES=1
 ```
 
-> Never commit real API keys or credentials to GitHub.
+> ⚠️ Never commit real API keys, passwords, or other secrets to GitHub.
 
 ---
 
-## 💻 Running Locally
+# 💻 Local Installation
 
-### 1. Clone Repository
+## 1. Clone the Repository
 
 ```bash
 git clone https://github.com/sufiandevs/Document-Analyzer.git
 cd Document-Analyzer
 ```
 
-### 2. Start Backend
+## 2. Start the Backend
 
 ```bash
 cd backend
 pip install -r requirements.txt
 ```
 
-Configure the environment variables and start FastAPI:
+Configure environment variables and run:
 
 ```bash
 uvicorn app.main:app --reload
@@ -503,7 +492,7 @@ Swagger:
 http://localhost:8000/docs
 ```
 
-### 3. Start Frontend
+## 3. Start the Frontend
 
 ```bash
 cd frontend
@@ -511,24 +500,30 @@ npm install
 npm run dev
 ```
 
-The React application will be available through the Vite development server.
+Open the frontend using the URL shown by Vite.
 
 ---
 
-## 🐳 Docker
+# 🐳 Docker
 
-The project includes Docker configuration for running the main services together.
+The project includes Docker Compose configuration for the main application services.
 
-Services include:
+```mermaid
+flowchart TB
+    D["🐳 Docker Compose"]
 
-```text
-PostgreSQL
-Redis
-Backend
-Frontend
+    F["Frontend"]
+    B["Backend"]
+    P["PostgreSQL"]
+    R["Redis"]
+
+    D --> F
+    D --> B
+    D --> P
+    D --> R
 ```
 
-Start the complete stack:
+Start the application stack:
 
 ```bash
 docker compose up --build
@@ -542,79 +537,91 @@ docker compose down
 
 ---
 
-## 📊 Evaluation
+# 📊 Evaluation
 
-The project contains an evaluation dataset with **30 questions** covering different categories:
+The project includes an evaluation dataset containing **30 questions**.
 
-* Easy questions
-* Multi-hop questions
-* Citation questions
-* No-answer questions
-* Ambiguous questions
-* Hallucination-oriented questions
+The dataset covers:
 
-The evaluation script sends questions to the local `/chat` endpoint and records retrieval and answer-related results.
+| Category      | Purpose                                            |
+| ------------- | -------------------------------------------------- |
+| Easy          | Basic document questions                           |
+| Multi-hop     | Questions requiring multiple pieces of information |
+| Citation      | Source/citation-focused questions                  |
+| No Answer     | Questions where information is unavailable         |
+| Ambiguous     | Unclear or underspecified questions                |
+| Hallucination | Testing unsupported answers                        |
 
-Run:
+Run the evaluation script:
 
 ```bash
 cd evalution
 python evaluate.py
 ```
 
-The evaluation pipeline reports measurements such as:
+The current evaluation implementation records:
 
 * Retrieval score
 * Source retrieval success
 * Citation presence
 * Answer faithfulness proxy
 
-> The current evaluation implementation uses custom metrics rather than a full Ragas/DeepEval evaluation pipeline.
+> The current implementation uses custom evaluation logic rather than Ragas or DeepEval.
 
 ---
 
-## 🧪 Testing
+# 🧪 Testing Strategy
 
-The system can be tested at multiple levels:
+The system can be tested across the complete application pipeline:
 
-### Backend
+```mermaid
+flowchart LR
+    U["Upload"]
+    I["Index"]
+    Q["Question"]
+    R["Retrieve"]
+    G["Grade"]
+    A["Generate"]
+    C["Citations"]
 
-```text
-FastAPI → Swagger → API Endpoints
+    U --> I
+    I --> Q
+    Q --> R
+    R --> G
+    G --> A
+    A --> C
 ```
 
-### RAG
+Testing areas include:
 
-```text
-Document → Retrieval → Context → Answer
-```
-
-### LangGraph
-
-```text
-Query → Retrieval → Relevance → Rewrite/Answer → Verification
-```
-
-### Frontend
-
-```text
-Upload → Index → Ask Question → Receive Answer → View Citations
-```
+* Document upload
+* Document processing
+* Vector storage
+* Semantic retrieval
+* Query rewriting
+* Answer generation
+* Citations
+* API endpoints
+* Chat history
+* Frontend interaction
 
 ---
 
-## 🔐 Security Considerations
+# 🔐 Security
 
-* API keys should be stored in environment variables.
+The project follows basic security practices:
+
+* API credentials are stored through environment variables.
 * `.env` files should not be committed.
-* Uploaded files should be validated by extension and size.
-* The backend validates chat request fields using Pydantic.
-* Production deployments should restrict CORS origins.
-* Sensitive credentials should be rotated if accidentally exposed.
+* Uploaded file types are validated.
+* Upload size is restricted.
+* Chat requests use Pydantic validation.
+* Production deployments should use restricted CORS settings.
+* Exposed credentials should be rotated immediately.
 
 ---
 
-## 📁 Project Structure
+# 📁 Project Structure
 
 ```text
 Document-Analyzer/
@@ -647,111 +654,84 @@ Document-Analyzer/
 │   ├── evaluation_dataset.json
 │   └── evaluate.py
 │
+├── docs/
+│   └── images/
+│       ├── frontend.png
+│       ├── documents.png
+│       └── chat-response.png
+│
 ├── docker-compose.yml
 ├── render.yaml
 ├── .env.example
 ├── run.bat
-└── README.md
+├── README.md
+└── LICENSE
 ```
 
 ---
 
-## ⚠️ Limitations
+# ⚠️ Limitations
+
+Some advanced capabilities are implemented in the codebase but are not currently enabled in the main LangGraph execution path.
 
 Current limitations include:
 
-* Some advanced retrieval capabilities are implemented but not enabled in the active LangGraph retrieval path.
-* Query analysis currently uses a deterministic classification approach.
-* Relevance grading currently relies on retrieval scores rather than a separate LLM grader.
-* Hallucination and citation verification are currently represented by workflow checks rather than a complete independent verification model.
-* The evaluation script uses custom metrics rather than Ragas/DeepEval.
-* The current frontend is React + Vite rather than Next.js.
-
-These areas provide opportunities for further improvement.
+* MMR/reranking are implemented but disabled in the active retrieval call.
+* Query analysis currently uses deterministic classification.
+* Relevance grading currently uses retrieval-score logic.
+* Hallucination/citation verification is represented in the workflow but does not currently perform independent LLM verification.
+* Evaluation uses custom metrics rather than Ragas/DeepEval.
+* Frontend uses React + Vite rather than Next.js.
 
 ---
 
-## 🔮 Future Improvements
+# 🔮 Future Improvements
 
-Possible future enhancements include:
-
-* True MMR retrieval in the active graph path.
-* Enable BGE reranking during normal retrieval.
-* LLM-based query analysis.
-* LLM-based relevance grading.
-* Independent citation verification.
-* Stronger hallucination detection.
-* Ragas/DeepEval integration.
-* Streaming LLM responses.
-* Authentication and authorization.
-* Better observability and tracing.
-* Hybrid keyword + semantic retrieval.
-* Long-term conversational memory.
-* Multi-agent document analysis.
+* Enable true MMR retrieval in the active workflow.
+* Enable BGE reranking in normal graph execution.
+* Implement LLM-based query analysis.
+* Implement independent relevance grading.
+* Add stronger hallucination detection.
+* Add Ragas/DeepEval evaluation.
+* Add streaming responses.
+* Add authentication and authorization.
+* Add hybrid keyword + semantic search.
+* Add long-term conversational memory.
+* Add observability and tracing.
+* Extend the system toward multi-agent document analysis.
 
 ---
 
-## 📸 Screenshots
+# 📸 API Documentation
 
-### 🖥️ Application Interface
+FastAPI automatically provides interactive API documentation through Swagger UI.
 
-Add a screenshot of the working React application here:
-
-```text
-docs/images/frontend.png
-```
-
-Example:
-
-### 💬 AI Chat & Citations
-
-Add a screenshot showing a question, AI response, and citations:
-
-```text
-docs/images/chat-response.png
-```
-
-### 📚 Document Management
-
-Add a screenshot showing uploaded/indexed documents:
-
-```text
-docs/images/documents.png
-```
-
-### 🔧 API Documentation
-
-Add a screenshot of FastAPI Swagger:
-
-```text
-docs/images/swagger.png
-```
-
-> Create the `docs/images/` folder and place your screenshots there. GitHub will automatically render the images using the paths above.
+![FastAPI Swagger](docs/images/swagger.png)
 
 ---
 
-## 📌 Assignment Requirements Coverage
+# 📌 Assignment Requirements
 
-| Requirement                     | Implementation                        |
+| Assignment Requirement          | Status                                |
 | ------------------------------- | ------------------------------------- |
 | PDF/TXT/DOCX ingestion          | ✅                                     |
-| Document cleaning               | ✅                                     |
+| Document loading                | ✅                                     |
+| Cleaning                        | ✅                                     |
 | Configurable chunking           | ✅                                     |
 | Embeddings                      | ✅                                     |
-| Persistent vector database      | ✅ ChromaDB                            |
+| Persistent vector database      | ✅                                     |
 | Semantic retrieval              | ✅                                     |
-| Advanced retrieval capabilities | ✅ Implemented                         |
-| Reranking capability            | ✅ Implemented                         |
+| Advanced retrieval capabilities | ✅                                     |
+| Reranking capability            | ✅                                     |
 | Context optimization            | ✅                                     |
 | Citations                       | ✅                                     |
 | LangGraph workflow              | ✅                                     |
 | Query rewriting                 | ✅                                     |
 | Conditional routing             | ✅                                     |
-| FastAPI                         | ✅                                     |
+| FastAPI backend                 | ✅                                     |
 | Pydantic validation             | ✅                                     |
 | React frontend                  | ✅                                     |
-| PostgreSQL persistence          | ✅                                     |
+| PostgreSQL                      | ✅                                     |
 | Redis                           | ✅                                     |
 | Docker Compose                  | ✅                                     |
 | Evaluation dataset              | ✅ 30 questions                        |
@@ -760,7 +740,7 @@ docs/images/swagger.png
 
 ---
 
-## 👨‍💻 Author
+# 👨‍💻 Author
 
 **Sufian Devs**
 
@@ -770,6 +750,6 @@ https://github.com/sufiandevs/Document-Analyzer
 
 ---
 
-## 📄 License
+# 📄 License
 
 This project is available under the license included in the repository.
