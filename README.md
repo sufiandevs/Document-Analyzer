@@ -661,7 +661,6 @@ Document-Analyzer/
 │
 ├── docker-compose.yml
 ├── render.yaml
-├── .env.example
 ├── run.bat
 ├── README.md
 └── LICENSE
